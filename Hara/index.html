@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Haret El Naameh Elections</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <a id="linkFamily" class="active" onclick="showSection('familySection', this)">Search by Family Name &
+            Gender</a>
+        <a id="linkReg" onclick="showSection('regSection' ,this)">Search by Registration number & Gender</a>
+    </nav>
+
+    <div id="familySection" class="section active">
+        <h2>Search by Family Name & Gender</h2>
+        <select id="familyName">
+            <option value="الكل">الكل</option>
+            <option value="فخر الدين">فخر الدين</option>
+            <option value="مزهر">مزهر</option>
+            <option value="يونس">يونس</option>
+            <option value="شاهين">شاهين</option>
+            <option value="حمود">حمود</option>
+            <option value="البغدادي">البغدادي</option>
+            <option value="عطوي">عطوي</option>
+            <option value="حاطوم">حاطوم</option>
+            <option value="حسون">حسون</option>
+            <option value="السوالمه">السوالمه</option>
+            <option value="بو عقل">بو عقل</option>
+            <option value="الخطيب">الخطيب</option>
+            <option value="السبع">السبع</option>
+            <option value="حمزه">حمزه</option>
+            <option value="العيراني">العيراني</option>
+            <option value="محمود">محمود</option>
+            <option value="مجيد">مجيد</option>
+            <option value="المملوك">المملوك</option>
+            <option value="الهيبي">الهيبي</option>
+            <option value="بكور">بكور</option>
+            <option value="رشوان">رشوان</option>
+            <option value="الهندي">الهندي</option>
+            <option value="الخلف">الخلف</option>
+            <option value="الحمد">الحمد</option>
+            <option value="خضر">خضر</option>
+            <option value="قايماز">قايماز</option>
+            <option value="كريديه">كريديه</option>
+            <option value="الطعمه">الطعمه</option>
+            <option value="كرمه">كرمه</option>
+            <option value="قيار">قيار</option>
+            <option value="احمد">احمد</option>
+
+
+
+        </select>
+
+        <select id="familyGender">
+            <option value="الكل">الكل</option>
+            <option value="رجال">رجال</option>
+            <option value="نساء">نساء</option>
+        </select>
+
+        <button onclick="searchByFamilyName()">Search</button>
+    </div>
+
+    <div id="regSection" class="section">
+        <h2>Search by Registration Number and Gender</h2>
+        <select id="regNumber">
+            <!-- <option value="الكل">الكل</option> -->
+            <option value="١">١</option>
+            <option value="٢">٢</option>
+            <option value="٣">٣</option>
+            <option value="٤">٤</option>
+            <option value="٥">٥</option>
+            <option value="٦">٦</option>
+            <option value="٧">٧</option>
+            <option value="٩">٩</option>
+            <option value="١٠">١٠</option>
+            <option value="١١">١١</option>
+            <option value="١٢">١٢</option>
+            <option value="١٣">١٣</option>
+            <option value="١٤">١٤</option>
+            <option value="١٥">١٥</option>
+            <option value="١٦">١٦</option>
+            <option value="١٧">١٧</option>
+            <option value="١٨">١٨</option>
+            <option value="٢٠">٢٠</option>
+            <option value="٢١">٢١</option>
+            <option value="٢٢">٢٢</option>
+            <option value="٢٣">٢٣</option>
+            <option value="٢٤">٢٤</option>
+            <option value="٢٧">٢٧</option>
+            <option value="٢٨">٢٨</option>
+            <option value="٢٩">٢٩</option>
+            <option value="٣٠">٣٠</option>
+            <option value="٣٢">٣٢</option>
+            <option value="٣٤">٣٤</option>
+            <option value="٣٦">٣٦</option>
+            <option value="٣٨">٣٨</option>
+            <option value="٣٩">٣٩</option>
+            <option value="٤٠">٤٠</option>
+            <option value="٤١">٤١</option>
+            <option value="٤٣">٤٣</option>
+            <option value="٤٤">٤٤</option>
+            <option value="٤٥">٤٥</option>
+            <option value="٤٦">٤٦</option>
+            <option value="٤٨">٤٨</option>
+            <option value="٤٩">٤٩</option>
+            <option value="٥٠">٥٠</option>
+            <option value="٥٢">٥٢</option>
+            <option value="٥٣">٥٣</option>
+            <option value="٥٤">٥٤</option>
+            <option value="٥٦">٥٦</option>
+            <option value="٥٧">٥٧</option>
+            <option value="٦٢">٦٢</option>
+            <option value="٦٤">٦٤</option>
+            <option value="٦٥">٦٥</option>
+            <option value="٦٦">٦٦</option>
+            <option value="٦٧">٦٧</option>
+            <option value="٦٨">٦٨</option>
+            <option value="٦٩">٦٩</option>
+            <option value="٧٠">٧٠</option>
+            <option value="٧١">٧١</option>
+            <option value="٧٣">٧٣</option>
+            <option value="٧٤">٧٤</option>
+            <option value="٧٦">٧٦</option>
+            <option value="٧٧">٧٧</option>
+            <option value="٨٠">٨٠</option>
+            <option value="٨١">٨١</option>
+            <option value="٨٢">٨٢</option>
+            <option value="٨٣">٨٣</option>
+            <option value="٨٥">٨٥</option>
+            <option value="٨٦">٨٦</option>
+            <option value="٩١">٩١</option>
+            <option value="٩٤">٩٤</option>
+            <option value="٩٥">٩٥</option>
+            <option value="٩٦">٩٦</option>
+            <option value="٩٨">٩٨</option>
+            <option value="١٠٠">١٠٠</option>
+            <option value="١٠١">١٠١</option>
+            <option value="١٠٣">١٠٣</option>
+            <option value="١٠٥">١٠٥</option>
+            <option value="١٠٦">١٠٦</option>
+            <option value="١٠٨">١٠٨</option>
+            <option value="١١٣">١١٣</option>
+            <option value="١١٤">١١٤</option>
+            <option value="١١٥">١١٥</option>
+            <option value="١١٦">١١٦</option>
+            <option value="١١٨">١١٨</option>
+            <option value="١١٩">١١٩</option>
+            <option value="١٢٠">١٢٠</option>
+            <option value="١٢١">١٢١</option>
+            <option value="١٢٣">١٢٣</option>
+            <option value="١٢٥">١٢٥</option>
+            <option value="١٢٦">١٢٦</option>
+            <option value="١٢٧">١٢٧</option>
+            <option value="١٢٨">١٢٨</option>
+            <option value="١٢٩">١٢٩</option>
+            <option value="١٣١">١٣١</option>
+            <option value="١٣٢">١٣٢</option>
+        </select>
+        <select id="gender">
+            <option value="الكل">الكل</option>
+            <option value="رجال">رجال</option>
+            <option value="نساء">نساء</option>
+        </select>
+        <button onclick="searchByRegAndGender()">Search</button>
+    </div>
+
+    <div id="loading">Loading data...</div>
+
+    <div id="registrationNumbersByFamilyName"></div>
+
+    <p id="resultCount" style="text-align: center; font-weight: bold;"></p>
+
+    <p id="voteResults" style="text-align: center; font-weight: bold;"></p>
+
+    <div id="btnsContainer">
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="resetButton" onclick="resetVotes()"
+                style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+
+                Reset Votes
+            </button>
+        </div>
+
+        <div id="modalContainer">
+            <button popovertarget="modal" id="displayVotedPeopleButton">
+                Display Voted People
+            </button>
+
+            <div id="modal" popover="auto">
+                <h2>Voted People</h2>
+
+                <div id="votedPeople"></div>
+
+                <button popovertarget="modal" id="closeModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <table id="resultsTable">
+        <thead id="tableHead"></thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        // Local data storage
+        let localData = {
+            men: [],
+            women: []
+        };
+
+        // Votes storage
+        const votesData = {};
+
+        // Load data from Excel file
+        async function loadData() {
+            try {
+                // Replace with your Excel file path
+                const response = await fetch('Haret El Naameh Elections.xlsx');
+                const arrayBuffer = await response.arrayBuffer();
+                const data = new Uint8Array(arrayBuffer);
+                const workbook = XLSX.read(data, { type: 'array' });
+
+                // Get data from sheets
+                localData.men = XLSX.utils.sheet_to_json(workbook.Sheets['Men'], { header: 1 });
+                localData.women = XLSX.utils.sheet_to_json(workbook.Sheets['Women'], { header: 1 });
+
+                console.log('Data loaded successfully');
+            } catch (error) {
+                console.error('Error loading data:', error);
+                alert('Error loading data. Please check console for details.');
+            }
+        }
+
+        // Initialize the app
+        window.onload = function () {
+            loadData();
+            document.getElementById("resetButton").style.display = "none";
+            document.getElementById('displayVotedPeopleButton').style.display = 'none';
+        };
+
+        function showSection(sectionId, element) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            element.classList.add('active');
+
+            if (sectionId === 'familySection') {
+                document.getElementById('resultsTable').style.display = 'table';
+                document.getElementById('resultCount').style.display = '';
+                document.getElementById('registrationNumbersByFamilyName').style.display = '';
+                document.getElementById('resetButton').style.display = 'none';
+                document.getElementById('displayVotedPeopleButton').style.display = 'none';
+                document.getElementById("voteResults").style.display = "none";
+
+                const stored = sessionStorage.getItem('familySearchResults');
+                if (stored) {
+                    displayResults(JSON.parse(stored), false);
+                } else {
+                    displayResults([], true);
+                }
+            } else if (sectionId === 'regSection') {
+                document.getElementById('resultsTable').style.display = 'table';
+                document.getElementById('resultCount').style.display = '';
+                document.getElementById('resetButton').style.display = '';
+                document.getElementById('displayVotedPeopleButton').style.display = '';
+                document.getElementById("voteResults").style.display = "";
+
+                const stored = sessionStorage.getItem('regSearchResults');
+                if (stored) {
+                    displayResults(JSON.parse(stored), true);
+                } else {
+                    displayResults([], false);
+                }
+            }
+        }
+
+        function searchByFamilyName() {
+            const familyName = document.getElementById('familyName').value;
+            const gender = document.getElementById('familyGender').value;
+
+            showLoading(true);
+
+            // Use local data instead of API call
+            const results = filterByFamilyNameLocal(familyName, gender);
+
+            showLoading(false);
+            displayResults(results, false);
+            sessionStorage.setItem('familySearchResults', JSON.stringify(results));
+            filterRegistrationNumbersByFamilyNameLocal(familyName);
+        }
+
+        function filterByFamilyNameLocal(familyName, gender) {
+            let results = [];
+
+            if (familyName === "الكل") {
+                if (gender === "الكل") {
+                    results = [...localData.men.slice(1), ...localData.women.slice(1)];
+                } else if (gender === "رجال") {
+                    results = localData.men.slice(1);
+                } else {
+                    results = localData.women.slice(1);
+                }
+            } else {
+                if (gender === "الكل") {
+                    const menResults = localData.men.slice(1).filter(row =>
+                        row[6].toString().endsWith(familyName) &&
+                        (familyName !== "حمود" || !row[6].toString().endsWith("محمود"))
+                    );
+
+                    const registrationNumbers = [...new Set(menResults.map(row => row[1]))];
+
+                    const womenResults = localData.women.slice(1).filter(row =>
+                        registrationNumbers.includes(row[1])
+                    );
+
+                    results = [...menResults, ...womenResults];
+                } else if (gender === "رجال") {
+                    results = localData.men.slice(1).filter(row =>
+                        row[6].toString().endsWith(familyName) &&
+                        (familyName !== "حمود" || !row[6].toString().endsWith("محمود"))
+                    );
+                } else {
+                    const registrationNumbers = [...new Set(
+                        localData.men.slice(1)
+                            .filter(row => row[6].toString().endsWith(familyName) &&
+                                (familyName !== "حمود" || !row[6].toString().endsWith("محمود")))
+                            .map(row => row[1])
+                    )];
+
+                    results = localData.women.slice(1).filter(row =>
+                        registrationNumbers.includes(row[1])
+                    );
+                }
+            }
+
+            return results;
+        }
+
+        function filterRegistrationNumbersByFamilyNameLocal(familyName) {
+            const registrationNumbersByFamilyName = document.getElementById('registrationNumbersByFamilyName');
+            registrationNumbersByFamilyName.innerHTML = '';
+
+            let registrationNumbers = [];
+
+            if (familyName === "الكل") {
+                registrationNumbers = [...new Set(localData.men.slice(1).map(row => row[1]))];
+            } else {
+                registrationNumbers = [...new Set(
+                    localData.men.slice(1)
+                        .filter(row =>
+                            row[6].toString().endsWith(familyName) &&
+                            (familyName !== "حمود" || !row[6].toString().endsWith("محمود")))
+                        .map(row => row[1])
+                )];
+            }
+
+            const span = document.createElement('span');
+            if (familyName !== 'الكل') {
+                span.textContent = "سجلات بيت " + familyName + " : ";
+            } else {
+                span.textContent = " السجلات لجميع البيوت : ";
+            }
+            registrationNumbersByFamilyName.appendChild(span);
+
+            registrationNumbers.forEach((regNumber, index) => {
+                const span = document.createElement('span');
+                if (index !== registrationNumbers.length - 1) {
+                    span.textContent = `${regNumber} - `;
+                } else {
+                    span.textContent = `${regNumber}`;
+                }
+                registrationNumbersByFamilyName.appendChild(span);
+            });
+        }
+
+        function searchByRegAndGender() {
+            const regNumber = document.getElementById('regNumber').value;
+            const gender = document.getElementById('gender').value;
+
+            showLoading(true);
+
+            // Use local data instead of API call
+            const results = filterByRegistrationNumberLocal(regNumber, gender);
+
+            showLoading(false);
+            displayResults(results, true);
+            sessionStorage.setItem('regSearchResults', JSON.stringify(results));
+
+            // Get vote results from local storage
+            const voteResults = getVoteResultsLocal(regNumber);
+            displayVotedResults(voteResults);
+        }
+
+        function filterByRegistrationNumberLocal(registrationNumber, gender) {
+            let results = [];
+
+            if (registrationNumber === "الكل") {
+                if (gender === "نساء") {
+                    results = localData.women.slice(1);
+                } else if (gender === "رجال") {
+                    results = localData.men.slice(1);
+                } else {
+                    results = [...localData.men.slice(1), ...localData.women.slice(1)];
+                }
+            } else {
+                if (gender === "نساء") {
+                    results = localData.women.slice(1).filter(row => String(row[1]).trim() === registrationNumber);
+                } else if (gender === "رجال") {
+                    results = localData.men.slice(1).filter(row => String(row[1]).trim() === registrationNumber);
+                } else {
+                    results = [
+                        ...localData.men.slice(1).filter(row => String(row[1]).trim() === registrationNumber),
+                        ...localData.women.slice(1).filter(row => String(row[1]).trim() === registrationNumber)
+                    ];
+                }
+            }
+
+            // Add vote status to each row
+            const voteData = votesData[registrationNumber] || { withUs: [], againstUs: [], noVote: [] };
+
+            return results.map(row => {
+                const rowKey = JSON.stringify(row);
+                let voteStatus = "";
+
+                if (voteData.withUs.includes(rowKey)) {
+                    voteStatus = "with";
+                } else if (voteData.againstUs.includes(rowKey)) {
+                    voteStatus = "against";
+                } else if (voteData.noVote.includes(rowKey)) {
+                    voteStatus = "noVote";
+                }
+
+                return [...row, voteStatus];
+            });
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+            document.getElementById('resultsTable').style.display = show ? 'none' : 'table';
+            document.getElementById('resultCount').style.display = show ? 'none' : 'block';
+        }
+
+        function displayResults(data, isRegSearch) {
+            const tableHead = document.getElementById('tableHead');
+            const tableBody = document.getElementById('tableBody');
+
+            tableHead.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            if (data.length === 0) {
+                document.getElementById('resultCount').textContent = 'لا توجد نتائج';
+                return;
+            }
+
+            const headers = [
+                "ملاحظات",
+                "رقم السجل",
+                "المذهب",
+                "تاريخ الولادة",
+                "إسم ام وشهرتها",
+                "إسم اب",
+                "اسم والشهرة"
+            ];
+
+            if (isRegSearch) {
+                headers.push("تصويت");
+            }
+
+            else{
+                console.log(headers.values());
+                
+            }
+
+            const headerRow = document.createElement('tr');
+            headers.forEach(head => {
+                const th = document.createElement('th');
+                th.textContent = head;
+                headerRow.appendChild(th);
+            });
+            tableHead.appendChild(headerRow);
+
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+
+                // Check if this row has vote status (last element)
+                const voteStatus = isRegSearch ? row[row.length - 1] : null;
+                const rowData = isRegSearch ? row.slice(0, -1) : row; // Remove vote status for display
+
+                Object.values(rowData).forEach(value => {
+                    const td = document.createElement('td');
+                    td.textContent = value;
+                    tr.appendChild(td);
+                });
+
+                if (isRegSearch) {
+                    const tdButtons = document.createElement('td');
+                    tdButtons.classList.add('tdButtons');
+
+                    const withButton = document.createElement('button');
+                    const againstButton = document.createElement('button');
+                    const noVoteButton = document.createElement('button');
+
+                    withButton.textContent = "مع";
+                    againstButton.textContent = "ضد";
+                    noVoteButton.textContent = "لا صوت";
+
+                    // Highlight the selected button
+                    if (voteStatus === "with") {
+                        withButton.classList.add('selected');
+                    } else if (voteStatus === "against") {
+                        againstButton.classList.add('selected');
+                    } else if (voteStatus === "noVote") {
+                        noVoteButton.classList.add('selected');
+                    }
+
+                    withButton.addEventListener('click', () => {
+                        VoteLocal(row[1], rowData, "with");
+                        // Update UI immediately
+                        withButton.classList.add('selected');
+                        againstButton.classList.remove('selected');
+                        noVoteButton.classList.remove('selected');
+                    });
+
+                    againstButton.addEventListener('click', () => {
+                        VoteLocal(row[1], rowData, "against");
+                        // Update UI immediately
+                        againstButton.classList.add('selected');
+                        withButton.classList.remove('selected');
+                        noVoteButton.classList.remove('selected');
+                    });
+
+                    noVoteButton.addEventListener('click', () => {
+                        VoteLocal(row[1], rowData, "noVote");
+                        // Update UI immediately
+                        noVoteButton.classList.add('selected');
+                        withButton.classList.remove('selected');
+                        againstButton.classList.remove('selected');
+                    });
+
+                    withButton.classList.add('vote-btn');
+                    againstButton.classList.add('vote-btn');
+                    noVoteButton.classList.add('vote-btn');
+
+                    tdButtons.appendChild(withButton);
+                    tdButtons.appendChild(againstButton);
+                    tdButtons.appendChild(noVoteButton);
+
+                    tr.appendChild(tdButtons);
+                }
+
+                tableBody.appendChild(tr);
+            });
+
+            document.getElementById('resultCount').textContent = `عدد النتائج: ${data.length}`;
+        }
+
+        function VoteLocal(regNumber, row, status) {
+            if (!votesData[regNumber]) {
+                votesData[regNumber] = {
+                    withUs: [],
+                    againstUs: [],
+                    noVote: []
+                };
+            }
+
+            const rowKey = JSON.stringify(row);
+
+            // Remove from all arrays first
+            votesData[regNumber].withUs = votesData[regNumber].withUs.filter(r => r !== rowKey);
+            votesData[regNumber].againstUs = votesData[regNumber].againstUs.filter(r => r !== rowKey);
+            votesData[regNumber].noVote = votesData[regNumber].noVote.filter(r => r !== rowKey);
+
+            // Add to the appropriate array
+            if (status === "with") {
+                votesData[regNumber].withUs.push(rowKey);
+            } else if (status === "against") {
+                votesData[regNumber].againstUs.push(rowKey);
+            } else {
+                votesData[regNumber].noVote.push(rowKey);
+            }
+
+            // Save to localStorage for persistence
+            localStorage.setItem('votesData', JSON.stringify(votesData));
+
+            // Update the displayed results
+            const voteResults = getVoteResultsLocal(regNumber);
+            displayVotedResults(voteResults);
+        }
+
+        function getVoteResultsLocal(regNumber) {
+            const voteData = votesData[regNumber] || {
+                withUs: [],
+                againstUs: [],
+                noVote: []
+            };
+
+            return {
+                regNumber: regNumber,
+                withUs: voteData.withUs.map(JSON.parse),
+                againstUs: voteData.againstUs.map(JSON.parse),
+                noVote: voteData.noVote.map(JSON.parse)
+            };
+        }
+
+        function displayVotedResults(data) {
+            const voteResults = document.getElementById("voteResults");
+
+            if (!data) {
+                voteResults.innerHTML = '';
+                return;
+            }
+
+            const resultHTML = `
+            <div style="font-size: 18px;">
+                <span style="color: #4CAF50;"> رقم السجل :</span> ${data.regNumber} &nbsp;&nbsp;
+                <span style="color: #4CAF50;"> مع:</span> ${data.withUs.length} &nbsp;&nbsp;
+                <span style="color: #F44336;"> ضد:</span> ${data.againstUs.length} &nbsp;&nbsp;
+                <span style="color: #FFC107;"> لا يصوت:</span> ${data.noVote.length}
+            </div>
+        `;
+
+            voteResults.innerHTML = resultHTML;
+            fillModal(data);
+        }
+
+        function resetVotes() {
+            const regNumber = document.getElementById('regNumber').value;
+
+            if (confirm(`هل أنت متأكد أنك تريد حذف جميع بيانات التصويت لرقم السجل ${regNumber}؟ لا يمكن التراجع عن هذا الإجراء!`)) {
+                showLoading(true);
+
+                // Reset votes in local storage
+                if (votesData[regNumber]) {
+                    delete votesData[regNumber];
+                    localStorage.setItem('votesData', JSON.stringify(votesData));
+                }
+
+                showLoading(false);
+                alert(`تم حذف جميع بيانات التصويت لرقم السجل ${regNumber} بنجاح`);
+                document.getElementById("voteResults").innerHTML = '';
+                searchByRegAndGender();
+            }
+        }
+
+        function fillModal(data) {
+            const votedPeople = document.getElementById("votedPeople");
+            votedPeople.innerHTML = '';
+
+            const registrationNumber = document.getElementById("regNumber");
+
+            if (data.regNumber === registrationNumber.value) {
+                const categories = [
+                    { title: "مع", data: data.withUs, className: "with" },
+                    { title: "ضد", data: data.againstUs, className: "against" },
+                    { title: "لا صوت", data: data.noVote, className: "novote" },
+                ];
+
+                categories.forEach(category => {
+                    const section = document.createElement('div');
+                    section.className = 'voted-category';
+
+                    const heading = document.createElement('h3');
+                    heading.textContent = category.title;
+                    section.appendChild(heading);
+
+                    const list = document.createElement('div');
+                    list.className = 'voted-list';
+
+                    category.data.forEach(item => {
+                        const name = document.createElement('div');
+                        name.className = `voted-item ${category.className}`;
+                        name.textContent = item[6]; // Assuming name is at index 6
+                        list.appendChild(name);
+                    });
+
+                    section.appendChild(list);
+                    votedPeople.appendChild(section);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
