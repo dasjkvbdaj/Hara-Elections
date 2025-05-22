@@ -67,7 +67,6 @@
     <div id="regSection" class="section">
         <h2>Search by Registration Number and Gender</h2>
         <select id="regNumber">
-            <!-- <option value="الكل">الكل</option> -->
             <option value="١">١</option>
             <option value="٢">٢</option>
             <option value="٣">٣</option>
@@ -206,16 +205,14 @@
     </table>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
-        // Local data storage
+
         let localData = {
             men: [],
             women: []
         };
 
-        // Votes storage
         const votesData = {};
 
-        // Load data from Excel file
         async function loadData() {
             try {
                 // Replace with your Excel file path
@@ -235,7 +232,6 @@
             }
         }
 
-        // Initialize the app
         window.onload = function () {
             loadData();
             document.getElementById("resetButton").style.display = "none";
@@ -343,9 +339,8 @@
                 }
             }
 
-            // Ensure each result has all 7 columns, filling empty values if needed
             return results.map(row => {
-                // Pad the array with empty strings if it's shorter than 7 items
+
                 while (row.length < 7) {
                     row.push('');
                 }
@@ -469,7 +464,6 @@
                 return;
             }
 
-            // Create headers array based on search mode
             const headers = [
                 "ملاحظات",
                 "رقم السجل",
@@ -495,11 +489,9 @@
             data.forEach(row => {
                 const tr = document.createElement('tr');
 
-                // Check if this row has vote status (last element)
                 const voteStatus = isRegSearch ? row[row.length - 1] : null;
                 const rowData = isRegSearch ? row.slice(0, -1) : row; // Remove vote status for display
 
-                // Ensure we have exactly 7 columns of data (adjust indexes as needed)
                 const displayData = [
                     rowData[0] || '', // ملاحظات
                     rowData[1] || '', // رقم السجل
@@ -528,7 +520,6 @@
                     againstButton.textContent = "ضد";
                     noVoteButton.textContent = "لا صوت";
 
-                    // Highlight the selected button
                     if (voteStatus === "with") {
                         withButton.classList.add('selected');
                     } else if (voteStatus === "against") {
@@ -539,7 +530,6 @@
 
                     withButton.addEventListener('click', () => {
                         VoteLocal(row[1], rowData, "with");
-                        // Update UI immediately
                         withButton.classList.add('selected');
                         againstButton.classList.remove('selected');
                         noVoteButton.classList.remove('selected');
@@ -547,7 +537,6 @@
 
                     againstButton.addEventListener('click', () => {
                         VoteLocal(row[1], rowData, "against");
-                        // Update UI immediately
                         againstButton.classList.add('selected');
                         withButton.classList.remove('selected');
                         noVoteButton.classList.remove('selected');
@@ -555,7 +544,6 @@
 
                     noVoteButton.addEventListener('click', () => {
                         VoteLocal(row[1], rowData, "noVote");
-                        // Update UI immediately
                         noVoteButton.classList.add('selected');
                         withButton.classList.remove('selected');
                         againstButton.classList.remove('selected');
@@ -589,12 +577,10 @@
 
             const rowKey = JSON.stringify(row);
 
-            // Remove from all arrays first
             votesData[regNumber].withUs = votesData[regNumber].withUs.filter(r => r !== rowKey);
             votesData[regNumber].againstUs = votesData[regNumber].againstUs.filter(r => r !== rowKey);
             votesData[regNumber].noVote = votesData[regNumber].noVote.filter(r => r !== rowKey);
 
-            // Add to the appropriate array
             if (status === "with") {
                 votesData[regNumber].withUs.push(rowKey);
             } else if (status === "against") {
@@ -603,10 +589,8 @@
                 votesData[regNumber].noVote.push(rowKey);
             }
 
-            // Save to localStorage for persistence
             localStorage.setItem('votesData', JSON.stringify(votesData));
 
-            // Update the displayed results
             const voteResults = getVoteResultsLocal(regNumber);
             displayVotedResults(voteResults);
         }
@@ -653,7 +637,6 @@
             if (confirm(`هل أنت متأكد أنك تريد حذف جميع بيانات التصويت لرقم السجل ${regNumber}؟ لا يمكن التراجع عن هذا الإجراء!`)) {
                 showLoading(true);
 
-                // Reset votes in local storage
                 if (votesData[regNumber]) {
                     delete votesData[regNumber];
                     localStorage.setItem('votesData', JSON.stringify(votesData));
