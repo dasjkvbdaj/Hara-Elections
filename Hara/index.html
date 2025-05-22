@@ -343,7 +343,14 @@
                 }
             }
 
-            return results;
+            // Ensure each result has all 7 columns, filling empty values if needed
+            return results.map(row => {
+                // Pad the array with empty strings if it's shorter than 7 items
+                while (row.length < 7) {
+                    row.push('');
+                }
+                return row;
+            });
         }
 
         function filterRegistrationNumbersByFamilyNameLocal(familyName) {
@@ -462,6 +469,7 @@
                 return;
             }
 
+            // Create headers array based on search mode
             const headers = [
                 "ملاحظات",
                 "رقم السجل",
@@ -474,11 +482,6 @@
 
             if (isRegSearch) {
                 headers.push("تصويت");
-            }
-
-            else{
-                console.log(headers.values());
-                
             }
 
             const headerRow = document.createElement('tr');
@@ -496,7 +499,18 @@
                 const voteStatus = isRegSearch ? row[row.length - 1] : null;
                 const rowData = isRegSearch ? row.slice(0, -1) : row; // Remove vote status for display
 
-                Object.values(rowData).forEach(value => {
+                // Ensure we have exactly 7 columns of data (adjust indexes as needed)
+                const displayData = [
+                    rowData[0] || '', // ملاحظات
+                    rowData[1] || '', // رقم السجل
+                    rowData[2] || '', // المذهب
+                    rowData[3] || '', // تاريخ الولادة
+                    rowData[4] || '', // إسم ام وشهرتها
+                    rowData[5] || '', // إسم اب
+                    rowData[6] || ''  // اسم والشهرة
+                ];
+
+                displayData.forEach(value => {
                     const td = document.createElement('td');
                     td.textContent = value;
                     tr.appendChild(td);
