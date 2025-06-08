@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="rtl">
 
 <head>
     <meta charset="UTF-8" />
     <title>Haret El Naameh Elections</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 
 <body>
@@ -50,9 +51,6 @@
             <option value="كرمه">كرمه</option>
             <option value="قيار">قيار</option>
             <option value="احمد">احمد</option>
-
-
-
         </select>
 
         <select id="familyGender">
@@ -180,7 +178,6 @@
         <div style="text-align: center; margin-top: 20px;">
             <button id="resetButton" onclick="resetVotes()"
                 style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
-
                 Reset Votes
             </button>
         </div>
@@ -206,13 +203,13 @@
     </table>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
-
         let localData = {
             men: [],
             women: []
         };
 
-        const votesData = {};
+        // Load votes data from localStorage when the script starts
+        let votesData = JSON.parse(localStorage.getItem('votesData')) || {};
 
         async function loadData() {
             try {
@@ -341,7 +338,6 @@
             }
 
             return results.map(row => {
-
                 while (row.length < 7) {
                     row.push('');
                 }
@@ -578,20 +574,24 @@
 
             const rowKey = JSON.stringify(row);
 
+            // Remove from all arrays first
             votesData[regNumber].withUs = votesData[regNumber].withUs.filter(r => r !== rowKey);
             votesData[regNumber].againstUs = votesData[regNumber].againstUs.filter(r => r !== rowKey);
             votesData[regNumber].noVote = votesData[regNumber].noVote.filter(r => r !== rowKey);
 
+            // Add to the appropriate array
             if (status === "with") {
                 votesData[regNumber].withUs.push(rowKey);
             } else if (status === "against") {
                 votesData[regNumber].againstUs.push(rowKey);
-            } else {
+            } else if (status === "noVote") {
                 votesData[regNumber].noVote.push(rowKey);
             }
 
+            // Save to localStorage
             localStorage.setItem('votesData', JSON.stringify(votesData));
 
+            // Update the display
             const voteResults = getVoteResultsLocal(regNumber);
             displayVotedResults(voteResults);
         }
@@ -620,13 +620,13 @@
             }
 
             const resultHTML = `
-            <div style="font-size: 18px;">
-                <span style="color: #4CAF50;"> رقم السجل :</span> ${data.regNumber} &nbsp;&nbsp;
-                <span style="color: #4CAF50;"> مع:</span> ${data.withUs.length} &nbsp;&nbsp;
-                <span style="color: #F44336;"> ضد:</span> ${data.againstUs.length} &nbsp;&nbsp;
-                <span style="color: #FFC107;"> لا يصوت:</span> ${data.noVote.length}
-            </div>
-        `;
+                <div style="font-size: 18px;">
+                    <span style="color: #4CAF50;"> رقم السجل :</span> ${data.regNumber} &nbsp;&nbsp;
+                    <span style="color: #4CAF50;"> مع:</span> ${data.withUs.length} &nbsp;&nbsp;
+                    <span style="color: #F44336;"> ضد:</span> ${data.againstUs.length} &nbsp;&nbsp;
+                    <span style="color: #FFC107;"> لا يصوت:</span> ${data.noVote.length}
+                </div>
+            `;
 
             voteResults.innerHTML = resultHTML;
             fillModal(data);
