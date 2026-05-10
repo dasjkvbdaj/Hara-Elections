@@ -197,10 +197,12 @@
         </div>
     </div>
 
-    <table id="resultsTable">
-        <thead id="tableHead"></thead>
-        <tbody id="tableBody"></tbody>
-    </table>
+    <div class="table-scroll-wrapper">
+        <table id="resultsTable">
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         let localData = {
@@ -230,10 +232,17 @@
             }
         }
 
+        const customSelects = {};
+
         window.onload = function () {
             loadData();
             document.getElementById("resetButton").style.display = "none";
             document.getElementById('displayVotedPeopleButton').style.display = 'none';
+
+            customSelects.familyName = new CustomSelect('familyName', 'ابحث عن عائلة...');
+            customSelects.familyGender = new CustomSelect('familyGender', 'اختر الجنس...');
+            customSelects.regNumber = new CustomSelect('regNumber', 'ابحث عن سجل...');
+            customSelects.gender = new CustomSelect('gender', 'اختر الجنس...');
         };
 
         function showSection(sectionId, element) {
@@ -362,6 +371,18 @@
                         .map(row => row[1])
                 )];
             }
+
+            // Dynamically update the Registration Number dropdown
+            const regSelect = document.getElementById('regNumber');
+            regSelect.innerHTML = '';
+            registrationNumbers.forEach(regNumber => {
+                const option = document.createElement('option');
+                option.value = regNumber;
+                option.textContent = regNumber;
+                regSelect.appendChild(option);
+            });
+
+            if (customSelects.regNumber) customSelects.regNumber.rebuild();
 
             const span = document.createElement('span');
             if (familyName !== 'الكل') {
@@ -684,6 +705,174 @@
                     section.appendChild(list);
                     votedPeople.appendChild(section);
                 });
+            }
+        }
+
+        class CustomSelect {
+            constructor(selectId, searchPlaceholder = 'Search...') {
+                this.native = document.getElementById(selectId);
+                this.placeholder = searchPlaceholder;
+                this._build();
+                this._bindOutsideClick();
+            }
+
+            _build() {
+                // Remove any existing wrapper to allow rebuild
+                const existing = this.native.nextElementSibling;
+                if (existing && existing.classList.contains('custom-select-wrapper')) {
+                    existing.remove();
+                }
+
+                this.wrapper = document.createElement('div');
+                this.wrapper.className = 'custom-select-wrapper';
+
+                this.trigger = document.createElement('div');
+                this.trigger.className = 'custom-select-trigger';
+
+                this.label = document.createElement('span');
+                this.label.className = 'custom-select-label';
+
+                const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                chevron.setAttribute('viewBox', '0 0 24 24');
+                chevron.setAttribute('fill', 'none');
+                chevron.setAttribute('stroke', 'currentColor');
+                chevron.setAttribute('stroke-width', '2');
+                chevron.setAttribute('stroke-linecap', 'round');
+                chevron.setAttribute('stroke-linejoin', 'round');
+                chevron.classList.add('custom-select-chevron');
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+                path.setAttribute('points', '6 9 12 15 18 9');
+                chevron.appendChild(path);
+
+                this.trigger.appendChild(this.label);
+                this.trigger.appendChild(chevron);
+
+                this.menu = document.createElement('div');
+                this.menu.className = 'custom-select-menu';
+
+                this.searchInput = document.createElement('input');
+                this.searchInput.type = 'text';
+                this.searchInput.className = 'custom-select-search';
+                this.searchInput.placeholder = this.placeholder;
+
+                this.optionsList = document.createElement('div');
+                this.optionsList.className = 'custom-select-options';
+
+                this.menu.appendChild(this.searchInput);
+                this.menu.appendChild(this.optionsList);
+
+                this.wrapper.appendChild(this.trigger);
+                this.wrapper.appendChild(this.menu);
+
+                this.native.insertAdjacentElement('afterend', this.wrapper);
+
+                this._populateOptions();
+                this._bindEvents();
+            }
+
+            _populateOptions() {
+                this.optionsList.innerHTML = '';
+                const nativeOptions = Array.from(this.native.options);
+                const currentVal = this.native.value;
+
+                nativeOptions.forEach(opt => {
+                    const item = document.createElement('div');
+                    item.className = 'custom-select-option';
+                    if (opt.value === currentVal) item.classList.add('selected');
+                    item.textContent = opt.textContent;
+                    item.dataset.value = opt.value;
+                    this.optionsList.appendChild(item);
+                });
+
+                // Set initial label
+                const selected = this.native.options[this.native.selectedIndex];
+                this.label.textContent = selected ? selected.textContent : '';
+            }
+
+            _bindEvents() {
+                this.trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this._toggle();
+                });
+
+                this.searchInput.addEventListener('input', () => this._filter());
+
+                this.searchInput.addEventListener('click', (e) => e.stopPropagation());
+
+                this.optionsList.addEventListener('click', (e) => {
+                    const item = e.target.closest('.custom-select-option');
+                    if (!item) return;
+                    this._select(item.dataset.value, item.textContent);
+                });
+            }
+
+            _bindOutsideClick() {
+                document.addEventListener('click', () => this._close());
+            }
+
+            _toggle() {
+                const isOpen = this.menu.classList.contains('open');
+                // Close all other open dropdowns
+                document.querySelectorAll('.custom-select-menu.open').forEach(m => {
+                    m.classList.remove('open');
+                    m.previousElementSibling.classList.remove('open');
+                });
+                if (!isOpen) {
+                    this.menu.classList.add('open');
+                    this.trigger.classList.add('open');
+                    this.searchInput.value = '';
+                    this._filter();
+                    this.searchInput.focus();
+                }
+            }
+
+            _close() {
+                this.menu.classList.remove('open');
+                this.trigger.classList.remove('open');
+            }
+
+            _filter() {
+                const query = this.searchInput.value.trim().toLowerCase();
+                let hasVisible = false;
+
+                this.optionsList.querySelectorAll('.custom-select-option').forEach(item => {
+                    const match = item.textContent.toLowerCase().includes(query);
+                    item.classList.toggle('hidden', !match);
+                    if (match) hasVisible = true;
+                });
+
+                let empty = this.optionsList.querySelector('.custom-select-empty');
+                if (!hasVisible) {
+                    if (!empty) {
+                        empty = document.createElement('div');
+                        empty.className = 'custom-select-empty';
+                        empty.textContent = 'لا توجد نتائج';
+                        this.optionsList.appendChild(empty);
+                    }
+                } else if (empty) {
+                    empty.remove();
+                }
+            }
+
+            _select(value, text) {
+                this.native.value = value;
+                this.label.textContent = text;
+
+                this.optionsList.querySelectorAll('.custom-select-option').forEach(item => {
+                    item.classList.toggle('selected', item.dataset.value === value);
+                });
+
+                this._close();
+                this.native.dispatchEvent(new Event('change'));
+            }
+
+            // Call this after programmatically updating the native <select> options
+            rebuild() {
+                this._populateOptions();
+            }
+
+            get value() {
+                return this.native.value;
             }
         }
     </script>
