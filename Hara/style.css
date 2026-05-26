@@ -331,7 +331,7 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0; 
+    margin: 20px 0;
 }
 
 #modal {
@@ -354,7 +354,7 @@ button:hover {
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
 }
 
-#displayVotedPeopleButton{
+#displayVotedPeopleButton {
     display: none;
 }
 
@@ -480,7 +480,7 @@ button:hover {
     }
 
     /* Search section button full width */
-    .section > button {
+    .section>button {
         width: 100%;
         padding: 13px;
     }
@@ -532,11 +532,13 @@ button:hover {
     .custom-select-trigger {
         font-size: 0.88rem;
         padding: 10px 12px;
-        min-height: 46px; /* WCAG touch target */
+        min-height: 46px;
+        /* WCAG touch target */
     }
 
     .custom-select-option {
-        padding: 11px 12px; /* Larger tap targets on mobile */
+        padding: 11px 12px;
+        /* Larger tap targets on mobile */
         font-size: 0.9rem;
     }
 
@@ -546,7 +548,8 @@ button:hover {
 
     .vote-btn {
         padding: 8px 6px;
-        min-width: 44px; /* Touch-friendly minimum */
+        min-width: 44px;
+        /* Touch-friendly minimum */
     }
 
     #resultsTable th,
