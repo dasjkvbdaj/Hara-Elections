@@ -215,8 +215,10 @@
 
         async function loadData() {
             try {
-                // Replace with your Excel file path
-                const response = await fetch('Haret El Naameh Elections.xlsx');
+                const response = await fetch('elections.xlsx');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status} while fetching elections.xlsx`);
+                }
                 const arrayBuffer = await response.arrayBuffer();
                 const data = new Uint8Array(arrayBuffer);
                 const workbook = XLSX.read(data, { type: 'array' });
@@ -228,7 +230,7 @@
                 console.log('Data loaded successfully');
             } catch (error) {
                 console.error('Error loading data:', error);
-                alert('Error loading data. Please check console for details.');
+                alert(`Error loading data: ${error.message}`);
             }
         }
 
