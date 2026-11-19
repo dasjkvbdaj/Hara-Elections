@@ -1,7 +1,5 @@
-[[redirects]]
-  from = "/"
-  to = "/Hara/index.html"
-  status = 200
+[build]
+  publish = "Hara"
 
 [[headers]]
   for = "/*.xlsx"
